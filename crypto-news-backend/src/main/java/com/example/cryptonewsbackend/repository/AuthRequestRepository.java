@@ -3,6 +3,7 @@ package com.example.cryptonewsbackend.repository;
 import com.example.cryptonewsbackend.model.AuthenticationRequest;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -14,6 +15,6 @@ import java.util.Optional;
  */
 public interface AuthRequestRepository extends CrudRepository<AuthenticationRequest, Long> {
 
-    Optional<AuthenticationRequest> findById(Long id);
-    Optional<AuthenticationRequest> findByUsername(String username);
+    Optional <AuthenticationRequest> findById(Long id);
+    List <AuthenticationRequest> findByUsername(String username);
 }
