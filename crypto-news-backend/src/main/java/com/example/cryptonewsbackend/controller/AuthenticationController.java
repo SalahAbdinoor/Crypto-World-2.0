@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloRecource {
+public class AuthenticationController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -27,26 +27,30 @@ public class HelloRecource {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
-	@RequestMapping("/hello")
-	public String hello() { return "Hello World";}
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 
+		final String jwt;
+
 		try{
 			authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
-			);
+				new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+
+			final UserDetails userDetails = userDetailsService
+					.loadUserByUsername(authenticationRequest.getUsername());
+
+			jwt = jwtTokenUtil.generateToken(userDetails);
+
 		} catch (BadCredentialsException e){
-			throw new Exception("username/password: Incorrect");
+			e.printStackTrace();
+			throw new BadCredentialsException("username/password: Incorrect");
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new Exception(e.getMessage());
+
 		}
 
-		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(authenticationRequest.getUsername());
-
-		final String jwt = jwtTokenUtil.generateToken(userDetails);
-
 		return ResponseEntity.ok(new AuthenticationResponse(jwt));
-
 	}
 }

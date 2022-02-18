@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>LogIn and SignUp Page</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+  <div class="box"> 
+    <img src="icon.png" />
+    <div class="page">
+      <div class="header" id="header">
+        <a id="login" class="active" href="#login">login</a>
+        <a id="signup" href="#signup">signup</a>
+      </div>
+      <div id="errorMsg"></div>
+      <div class="content">
+        <form
+          class="login"
+          name="loginForm"
+          onsubmit="return validateLoginForm()"
+          method="GET"
+        >
+          <input type="text" name="name" id="logName" placeholder="Username" />
+          <input
+            type="password"
+            name="password"
+            id="logPassword"
+            placeholder="Password"
+          />
+          <div id="check">
+            <input type="checkbox" id="remember" />
+            <label for="remember">Remember me</label>
+          </div>
+          <br /><br />
+          <input type="submit" value="Login" />
+          <a href="#">Forgot Password?</a>
+        </form>
+        <form
+          class="signup"
+          name="signupForm"
+          onsubmit="return validateSignupForm()"
+          method="GET"
+        >
+          <input type="email" name="email" id="signEmail" placeholder="Email" />
+          <input type="text" name="name" id="signName" placeholder="Username" />
+          <input
+            type="password"
+            name="password"
+            id="signPassword"
+            placeholder="Password"
+          /><br />
+          <input type="submit" value="SignUp" />
+        </form>
+        <form
+        class="hello"
+        name="helloForm"
+        onsubmit="return signOutForm()"
+        method="GET"
+      >
+
+        <div id="helloTitle"></div>
+        <br>
+        <input type="submit" value="SignOut" />
+      
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"
+  ></script>
+  <script src="index.js"></script>
+</body>
