@@ -45,7 +45,7 @@ var data = {
   "password": password
 }
 
-if (username == "" || password == "") {
+if (username === "" || password === "") {
   document.getElementById("errorMsg").innerHTML =
     "Please fill the required fields"
     document.getElementById("errorMsg").style.color = "red";
@@ -60,7 +60,7 @@ if (username == "" || password == "") {
 } else {
   try {
   
-    const authorization = await fetch(url, {
+    const fetchToken = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -68,12 +68,10 @@ if (username == "" || password == "") {
         },
         body: JSON.stringify(data),
       })
-    .then(response => {
-      return response.json()})
-    .then(data => {
-      return data})
-      
-      loginResource(authorization)
+
+      const authToken = await fetchToken.json()
+            
+      loginResource(authToken)
   
     } catch (error) {
       document.getElementById("errorMsg").innerHTML =
@@ -88,17 +86,15 @@ if (username == "" || password == "") {
 
 async function loginResource(jwt){
   const url = "http://localhost:8080/user/get"
-  localStorage.setItem('jwt', jwt.jwt);
 
-  try {
-    
-  } catch (error) {
-    
-  }
+  var { jwt } = jwt;
+
+  localStorage.setItem('jwt', jwt);
+
  const test = await fetch(url, {
     method: 'GET',
     headers: {
-      'Authorization': `Bearer ${jwt.jwt}`,
+      'Authorization': `Bearer ${jwt}`,
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     },
@@ -123,9 +119,6 @@ async function loginResource(jwt){
     `
 
     document.getElementById("helloTitle").innerHTML = welcome;
-
-
-
 
 } 
 
